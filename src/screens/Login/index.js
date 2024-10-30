@@ -5,7 +5,7 @@ const LoginScreen = ({ navigation }) => {
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
             <Text>Login screen 2</Text>
             <Button
-                onPress={() => navigation.navigate('TabNav')}
+                onPress={() => navigation.navigate('DrawerNav')}
                 title="Go to drawer"
             />
         </View>
