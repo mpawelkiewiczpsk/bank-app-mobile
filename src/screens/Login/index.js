@@ -1,14 +1,36 @@
-import { Text, View, Button } from 'react-native';
+import React, { useState } from 'react';
+import { View } from 'react-native';
+import { TextInput, Button } from 'react-native-paper';
 
 function LoginScreen({ navigation }) {
-  return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Login screen 2</Text>
+  const [loginData, setLoginData] = useState({
+    login: '',
+    password: '',
+  });
 
-      <Button
-        onPress={() => navigation.navigate('DrawerNav')}
-        title="Go to drawer"
+  const login = () => {
+    if (loginData.login && loginData.password) {
+      if (loginData.password === loginData.login) {
+        navigation.navigate('DrawerNav');
+      }
+    }
+  };
+
+  return (
+    <View style={{ flex: 1, justifyContent: 'center', padding: 20, gap: 20 }}>
+      <TextInput
+        label="Login"
+        value={loginData.login}
+        onChangeText={(text) => setLoginData({ ...loginData, login: text })}
       />
+      <TextInput
+        label="Password"
+        value={loginData.password}
+        onChangeText={(text) => setLoginData({ ...loginData, password: text })}
+      />
+      <Button mode="contained" onPress={() => login()}>
+        Log in
+      </Button>
     </View>
   );
 }
