@@ -1,11 +1,17 @@
 import { useLayoutEffect } from 'react';
-import { Button, Text, View } from 'react-native';
+import { Text, View, TouchableOpacity } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 
 function BlikScreen({ navigation }) {
   useLayoutEffect(() => {
     navigation.setOptions({
       headerLeft: () => (
-        <Button onPress={() => navigation.toggleDrawer()} title="Menu" />
+        <TouchableOpacity
+          onPress={() => navigation.toggleDrawer()}
+          style={{ backgroundColor: 'transparent', padding: 10 }}
+        >
+          <Ionicons name="menu" size={24} color="black" />
+        </TouchableOpacity>
       ),
     });
   }, [navigation]);
