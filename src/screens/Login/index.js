@@ -27,6 +27,7 @@ function LoginScreen({ navigation }) {
         label="Password"
         value={loginData.password}
         onChangeText={(text) => setLoginData({ ...loginData, password: text })}
+        secureTextEntry
       />
       <Button mode="contained" onPress={() => login()}>
         Log in
