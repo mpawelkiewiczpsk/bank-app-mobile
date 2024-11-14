@@ -36,24 +36,15 @@ function HomeScreen({ navigation }) {
           **** **** **** 8888
         </Text>
       </View>
-      <View
-        style={{
-          flexDirection: 'row',
-          gap: 15,
-          marginTop: 15,
-          alignItems: 'stretch',
-        }}
-      >
-        <View>
-          <Button
-            icon="transfer"
-            mode="outlined"
-            style={styles.button}
-            onPress={() => console.log('Pressed')}
-          >
-            Transfer
-          </Button>
-        </View>
+      <View style={styles.buttonRow}>
+        <Button
+          icon="transfer"
+          mode="outlined"
+          style={styles.button}
+          onPress={() => console.log('Pressed')}
+        >
+          Transfer
+        </Button>
         <Button
           icon="cash"
           mode="outlined"
@@ -63,13 +54,7 @@ function HomeScreen({ navigation }) {
           BLIK
         </Button>
       </View>
-      <View
-        style={{
-          flexDirection: 'row',
-          marginTop: 15,
-          gap: 15,
-        }}
-      >
+      <View style={styles.buttonRow}>
         <Button
           icon="content-copy"
           mode="outlined"
@@ -100,7 +85,15 @@ const styles = StyleSheet.create({
     padding: 15,
     backgroundColor: '#fff',
   },
-  button: {},
+  button: {
+    flex: 1,
+  },
+  buttonRow: {
+    flexDirection: 'row',
+    marginTop: 15,
+    gap: 10,
+    width: '100%',
+  },
   card: {
     width: '100%',
     padding: 15,
