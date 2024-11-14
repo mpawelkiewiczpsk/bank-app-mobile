@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Text, TextInput, Button, IconButton } from 'react-native-paper';
+import { Text, TextInput, Button, IconButton, Snackbar  } from 'react-native-paper';
 
 const LoginScreen = ({ navigation }) => {
   const [pin, setPin] = useState('');
+  const [showSnackbar, setShowSnackbar] = useState(false);
 
   const handleNumberPress = (number) => {
     if (pin.length < 4) {
@@ -18,11 +19,18 @@ const LoginScreen = ({ navigation }) => {
   const handleLogin = () => {
     if (pin.length === 4 && pin === '1111') {
       navigation.navigate('DrawerNav');
+    }else{
+      setShowSnackbar(true);
     }
   };
 
   return (
     <View style={styles.container}>
+      <Snackbar
+        visible={showSnackbar}
+        onDismiss={() => setShowSnackbar(false)}>
+        Nieprawidłowy PIN
+      </Snackbar>
       <Text style={styles.header}>Wprowadź PIN</Text>
 
       <TextInput
