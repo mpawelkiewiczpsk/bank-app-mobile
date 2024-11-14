@@ -141,6 +141,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     padding: 16,
+    backgroundColor: '#fff',
   },
   header: {
     fontSize: 24,
@@ -167,6 +168,7 @@ const styles = StyleSheet.create({
     width: 80,
     marginHorizontal: 4,
     backgroundColor: 'red',
+    margin: 0,
   },
   okButton: {
     width: 80,

@@ -10,7 +10,7 @@ const header = {
 
 function StackNav() {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator initialRouteName="DrawerNav">
       <Stack.Screen name="Login" component={LoginScreen} />
       <Stack.Screen name="DrawerNav" component={DrawerNav} options={header} />
     </Stack.Navigator>
