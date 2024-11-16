@@ -22,7 +22,7 @@ const CustomDrawerContent = (props) => {
       <View style={{ borderTopWidth: 1, borderColor: '#ccc' }}>
         <DrawerItem
           label="Log out"
-          onPress={() => navigation.navigate('Login')}
+          onPress={() => navigation.popToTop()}
         />
       </View>
     </DrawerContentScrollView>

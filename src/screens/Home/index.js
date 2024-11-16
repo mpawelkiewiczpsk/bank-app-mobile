@@ -41,7 +41,7 @@ function HomeScreen({ navigation }) {
           icon="transfer"
           mode="outlined"
           style={styles.button}
-          onPress={() => console.log('Pressed')}
+          onPress={() => navigation.navigate('Transfer')}
         >
           Transfer
         </Button>
@@ -49,7 +49,7 @@ function HomeScreen({ navigation }) {
           icon="cash"
           mode="outlined"
           style={styles.button}
-          onPress={() => console.log('Pressed')}
+          onPress={() => navigation.navigate('Blik')}
         >
           BLIK
         </Button>
