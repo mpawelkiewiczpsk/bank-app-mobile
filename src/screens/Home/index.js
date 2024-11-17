@@ -1,7 +1,8 @@
 import { useLayoutEffect } from 'react';
-import { View, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { Text, useTheme, Button } from 'react-native-paper';
+import { Text, useTheme, Button, Icon } from 'react-native-paper';
+import TransactionsListComponent from './transactionsListComponent';
 
 function HomeScreen({ navigation }) {
   const theme = useTheme();
@@ -72,6 +73,56 @@ function HomeScreen({ navigation }) {
           History
         </Button>
       </View>
+      <Text style={{ ...styles.bigText, color: theme.colors.primary }}>
+        Recent Transactions
+      </Text>
+      <ScrollView
+        contentContainerStyle={{ borderRadius: 15 }}
+        style={{ width: '100%' }}
+      >
+        <TransactionsListComponent
+          title="Jan Kowalski"
+          date="9 November 2024"
+          amount="-$236.45"
+          icon="account-outline"
+        />
+        <TransactionsListComponent
+          title="Salary - November"
+          date="5 November 2024"
+          amount="+$3,500.00"
+          icon="cash"
+        />
+        <TransactionsListComponent
+          title="Spotify Subscription"
+          date="25 October 2024"
+          amount="-$9.99"
+          icon="credit-card"
+        />
+        <TransactionsListComponent
+          title="Uber Ride"
+          date="16 October 2024"
+          amount="-$25.50"
+          icon="car"
+        />
+        <TransactionsListComponent
+          title="Mechanic Service"
+          date="15 October 2024"
+          amount="-$150.00"
+          icon="tools"
+        />
+        <TransactionsListComponent
+          title="Amazon Purchase"
+          date="10 October 2024"
+          amount="-$75.99"
+          icon="cart"
+        />
+        <TransactionsListComponent
+          title="Freelance Work"
+          date="8 October 2024"
+          amount="+$500.00"
+          icon="briefcase"
+        />
+      </ScrollView>
     </View>
   );
 }
@@ -100,5 +151,11 @@ const styles = StyleSheet.create({
   },
   text: {
     color: '#fff',
+  },
+  bigText: {
+    textAlign: 'left',
+    fontSize: 24,
+    alignSelf: 'flex-start',
+    marginTop: 15,
   },
 });
