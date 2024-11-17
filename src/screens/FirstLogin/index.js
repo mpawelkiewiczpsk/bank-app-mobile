@@ -34,17 +34,17 @@ function FirstLogin({ navigation }) {
   return (
     <View style={styles.container}>
       <Text variant="headlineSmall" style={styles.title}>
-        Logowanie
+        Login
       </Text>
       <TextInput
-        label="Nazwa użytkownika"
+        label="Username"
         mode="outlined"
         onChangeText={(text) => handleTextChange(setLogin, text)}
         value={login}
         error={error}
       />
       <TextInput
-        label="Hasło"
+        label="Password"
         mode="outlined"
         secureTextEntry
         onChangeText={(text) => handleTextChange(setPassword, text)}
@@ -52,10 +52,10 @@ function FirstLogin({ navigation }) {
         error={error}
       />
       <HelperText type="error" style={styles.helper} visible={error}>
-        Błędne dane logowania. Spróbuj ponownie.
+        Invalid username or password. Please try again.
       </HelperText>
       <Button mode="contained" style={styles.button} onPress={handleSubmit}>
-        Zaloguj się
+        Sign in
       </Button>
     </View>
   );

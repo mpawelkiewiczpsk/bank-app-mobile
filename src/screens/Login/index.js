@@ -43,10 +43,10 @@ const LoginScreen = ({ navigation, route }) => {
   return (
     <View style={styles.container}>
       <Snackbar visible={showSnackbar} onDismiss={() => setShowSnackbar(false)}>
-        Nieprawidłowy PIN
+        Invalid PIN.
       </Snackbar>
       <Text style={styles.header}>
-        {correctPin ? 'Wprowadź PIN' : 'Ustaw nowy PIN'}
+        {correctPin ? 'Enter PIN' : 'Create new PIN'}
       </Text>
 
       <TextInput
