@@ -16,7 +16,10 @@ function FirstLogin({ navigation }) {
     if (!login || !password) return;
 
     if (authenticated(login, password)) {
-      navigation.navigate('Login');
+      navigation.reset({
+        index: 0,
+        routes: [{ name: 'Login', params: { correctPin: null } }],
+      });
     } else {
       setError(true);
       setPassword('');
