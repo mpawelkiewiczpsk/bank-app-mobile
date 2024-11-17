@@ -1,6 +1,7 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import LoginScreen from '../../screens/Login';
 import DrawerNav from '../DrawerNav';
+import FirstLogin from '../../screens/FirstLogin';
 
 const Stack = createNativeStackNavigator();
 
@@ -11,6 +12,7 @@ const header = {
 function StackNav() {
   return (
     <Stack.Navigator>
+      <Stack.Screen name="FirstLogin" component={FirstLogin} />
       <Stack.Screen name="Login" component={LoginScreen} />
       <Stack.Screen name="DrawerNav" component={DrawerNav} options={header} />
     </Stack.Navigator>
