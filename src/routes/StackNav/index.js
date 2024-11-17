@@ -19,8 +19,7 @@ function usePIN() {
   useEffect(() => {
     async function getPIN() {
       try {
-        const key = 'pin';
-        const pin = await SecureStore.getItemAsync(key);
+        const pin = await SecureStore.getItemAsync('pin');
         setPin(pin);
       } finally {
         setLoading(false);
@@ -41,12 +40,12 @@ function StackNav() {
   } else {
     return (
       <Stack.Navigator initialRouteName={pin ? 'Login' : 'FirstLogin'}>
-        <Stack.Screen name="FirstLogin" component={FirstLogin} />
         <Stack.Screen
           name="Login"
           component={LoginScreen}
-          initialParams={{ pin }}
+          initialParams={{ correctPin: pin }}
         />
+        <Stack.Screen name="FirstLogin" component={FirstLogin} />
         <Stack.Screen name="DrawerNav" component={DrawerNav} options={header} />
       </Stack.Navigator>
     );

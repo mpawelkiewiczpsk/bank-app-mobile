@@ -1,10 +1,18 @@
 import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Text, TextInput, Button, IconButton, Snackbar  } from 'react-native-paper';
+import * as SecureStore from 'expo-secure-store';
+import {
+  Text,
+  TextInput,
+  Button,
+  IconButton,
+  Snackbar,
+} from 'react-native-paper';
 
-const LoginScreen = ({ navigation }) => {
+const LoginScreen = ({ navigation, route }) => {
   const [pin, setPin] = useState('');
   const [showSnackbar, setShowSnackbar] = useState(false);
+  const correctPin = route.params.correctPin;
 
   const handleNumberPress = (number) => {
     if (pin.length < 4) {
@@ -16,22 +24,30 @@ const LoginScreen = ({ navigation }) => {
     setPin((prevPin) => prevPin.slice(0, -1));
   };
 
-  const handleLogin = () => {
-    if (pin.length === 4 && pin === '1111') {
-      navigation.navigate('DrawerNav');
-    }else{
-      setShowSnackbar(true);
+  const handleLogin = async () => {
+    if (correctPin) {
+      if (pin.length === 4 && pin === correctPin) {
+        navigation.reset({ index: 0, routes: [{ name: 'DrawerNav' }] });
+      } else {
+        setShowSnackbar(true);
+      }
+    } else {
+      try {
+        await SecureStore.setItemAsync('pin', pin);
+      } finally {
+        navigation.reset({ index: 0, routes: [{ name: 'DrawerNav' }] });
+      }
     }
   };
 
   return (
     <View style={styles.container}>
-      <Snackbar
-        visible={showSnackbar}
-        onDismiss={() => setShowSnackbar(false)}>
+      <Snackbar visible={showSnackbar} onDismiss={() => setShowSnackbar(false)}>
         Nieprawidłowy PIN
       </Snackbar>
-      <Text style={styles.header}>Wprowadź PIN</Text>
+      <Text style={styles.header}>
+        {correctPin ? 'Wprowadź PIN' : 'Ustaw nowy PIN'}
+      </Text>
 
       <TextInput
         label="PIN"
