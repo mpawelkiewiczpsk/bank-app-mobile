@@ -16,7 +16,7 @@ const TransactionsListComponent = ({ title, date, amount, icon }) => {
       >
         <Icon source={icon} color={theme.colors.primary} size={48} />
       </View>
-      <View style={{ flexDirection: 'column', marginLeft: 10, gap: 5 }}>
+      <View style={{ flexDirection: 'column', marginLeft: 15, gap: 5 }}>
         <Text style={{ fontSize: 16, fontWeight: '900' }}>{title}</Text>
         <Text>{date}</Text>
       </View>
