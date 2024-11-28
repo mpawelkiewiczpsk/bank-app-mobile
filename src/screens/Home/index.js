@@ -1,10 +1,13 @@
 import { useLayoutEffect } from 'react';
-import { View, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { Text, useTheme, Button } from 'react-native-paper';
+import { Text, useTheme, Button, Icon } from 'react-native-paper';
+import TransactionsListComponent from './transactionsListComponent';
+import transactions from './exampleTransactions';
 
 function HomeScreen({ navigation }) {
   const theme = useTheme();
+
   useLayoutEffect(() => {
     navigation.setOptions({
       headerLeft: () => (
@@ -17,6 +20,7 @@ function HomeScreen({ navigation }) {
       ),
     });
   }, [navigation]);
+
   return (
     <View style={styles.container}>
       <View
@@ -72,6 +76,24 @@ function HomeScreen({ navigation }) {
           History
         </Button>
       </View>
+      <Text style={{ ...styles.bigText, color: theme.colors.primary }}>
+        Recent Transactions
+      </Text>
+      <ScrollView
+        contentContainerStyle={{ borderRadius: 15 }}
+        style={{ width: '100%' }}
+      >
+        {transactions.map((transaction) => (
+          <TransactionsListComponent
+            key={transaction.id}
+            title={transaction.title}
+            date={transaction.date}
+            amount={transaction.amount}
+            direction={transaction.direction}
+            type={transaction.type}
+          />
+        ))}
+      </ScrollView>
     </View>
   );
 }
@@ -100,5 +122,11 @@ const styles = StyleSheet.create({
   },
   text: {
     color: '#fff',
+  },
+  bigText: {
+    textAlign: 'left',
+    fontSize: 24,
+    alignSelf: 'flex-start',
+    marginTop: 15,
   },
 });
