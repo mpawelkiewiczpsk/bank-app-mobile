@@ -1,12 +1,26 @@
-import { useLayoutEffect } from 'react';
+import { useLayoutEffect, useEffect, useState } from 'react';
 import { View, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { Text, useTheme, Button, Icon } from 'react-native-paper';
+import { Text, useTheme, Button } from 'react-native-paper';
 import TransactionsListComponent from './transactionsListComponent';
-import transactions from './exampleTransactions';
+import { useIsFocused } from '@react-navigation/native';
+import axios from 'axios';
 
 function HomeScreen({ navigation }) {
+  const isFocused = useIsFocused();
   const theme = useTheme();
+  const [transactionList, setTransactionList] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get('http://172.20.10.2:3000/transactions?_sort=-id&_page=1&_per_page=3')
+      .then(function (response) {
+        setTransactionList(response.data.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }, [isFocused]);
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -83,14 +97,10 @@ function HomeScreen({ navigation }) {
         contentContainerStyle={{ borderRadius: 15 }}
         style={{ width: '100%' }}
       >
-        {transactions.map((transaction) => (
+        {transactionList.map((transaction) => (
           <TransactionsListComponent
             key={transaction.id}
-            title={transaction.title}
-            date={transaction.date}
-            amount={transaction.amount}
-            direction={transaction.direction}
-            type={transaction.type}
+            transaction={transaction}
           />
         ))}
       </ScrollView>

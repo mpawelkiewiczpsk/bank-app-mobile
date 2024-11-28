@@ -7,18 +7,20 @@ import {
   FlatList,
   Alert,
 } from 'react-native';
+import axios from 'axios';
 import { Ionicons } from '@expo/vector-icons';
 import { Button, Text, TextInput } from 'react-native-paper';
 
 function TransferScreen({ navigation }) {
   const [modalVisible, setModalVisible] = useState(false);
   const [confirmModalVisible, setConfirmModalVisible] = useState(false);
-
-  const [selectedAccount, setSelectedAccount] = useState('');
-  const [receiver, setReceiver] = useState('');
-  const [bill, setBill] = useState('');
-  const [amount, setAmount] = useState('');
-  const [title, setTitle] = useState('');
+  const [newTransfer, setNewTransfer] = useState({
+    selectedAccount: '',
+    receiver: '',
+    bill: '',
+    amount: '',
+    title: '',
+  });
   const [transfer, setTransfer] = useState({});
 
   const accounts = [
@@ -28,12 +30,12 @@ function TransferScreen({ navigation }) {
   ];
 
   const handleSelectAccount = (account) => {
-    setSelectedAccount(account.name);
+    setNewTransfer({ ...newTransfer, selectedAccount: account.name });
     setModalVisible(false);
   };
 
   const handleConfirmTransfer = () => {
-    if (!selectedAccount || !receiver || !bill || !amount || !title) {
+    if (!newTransfer.amount || !newTransfer.title) {
       Alert.alert(
         'Błąd',
         'Uzupełnij wszystkie pola przed zatwierdzeniem przelewu.',
@@ -41,6 +43,24 @@ function TransferScreen({ navigation }) {
       return;
     }
     setConfirmModalVisible(true);
+  };
+
+  const onConfirm = () => {
+    axios
+      .post('http://172.20.10.2:3000/transactions', {
+        title: newTransfer.title,
+        date: new Date().getTime(),
+        amount: newTransfer.amount,
+        direction: 'out',
+        type: 'personalTransfer',
+      })
+      .then(function () {
+        setConfirmModalVisible(false);
+        Alert.alert('Sukces', 'Przelew zrobiony');
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   };
 
   useLayoutEffect(() => {
@@ -66,7 +86,7 @@ function TransferScreen({ navigation }) {
           style={styles.dropdown}
           onPress={() => setModalVisible(true)}
         >
-          <Text>{selectedAccount || 'Wybierz rachunek'}</Text>
+          <Text>{newTransfer.selectedAccount || 'Wybierz rachunek'}</Text>
         </TouchableOpacity>
       </View>
 
@@ -106,11 +126,19 @@ function TransferScreen({ navigation }) {
         <View style={styles.modalOverlay}>
           <View style={styles.confirmModal}>
             <Text style={styles.modalTitle}>Potwierdź przelew</Text>
-            <Text style={styles.modalText}>Rachunek: {selectedAccount}</Text>
-            <Text style={styles.modalText}>Odbiorca: {receiver}</Text>
-            <Text style={styles.modalText}>Numer konta: {bill}</Text>
-            <Text style={styles.modalText}>Kwota: {amount} PLN</Text>
-            <Text style={styles.modalText}>Tytułem: {title}</Text>
+            <Text style={styles.modalText}>
+              Rachunek: {newTransfer.selectedAccount}
+            </Text>
+            <Text style={styles.modalText}>
+              Odbiorca: {newTransfer.receiver}
+            </Text>
+            <Text style={styles.modalText}>
+              Numer konta: {newTransfer.bill}
+            </Text>
+            <Text style={styles.modalText}>
+              Kwota: {newTransfer.amount} PLN
+            </Text>
+            <Text style={styles.modalText}>Tytułem: {newTransfer.title}</Text>
             <View style={styles.modalButtons}>
               <Button
                 style={{ marginBottom: 10 }}
@@ -122,22 +150,7 @@ function TransferScreen({ navigation }) {
               <Button
                 style={{ marginBottom: 10 }}
                 mode="contained"
-                onPress={() => {
-                  setTransfer({
-                    account: selectedAccount,
-                    receiver,
-                    bill,
-                    amount,
-                    title,
-                  });
-                  setConfirmModalVisible(false);
-                  Alert.alert('Sukces', 'Przelew zrobiony');
-                  setSelectedAccount('');
-                  setReceiver('');
-                  setBill('');
-                  setAmount('');
-                  setTitle('');
-                }}
+                onPress={onConfirm}
               >
                 Potwierdź
               </Button>
@@ -150,29 +163,31 @@ function TransferScreen({ navigation }) {
         <TextInput
           label="Odbiorca"
           style={styles.input}
-          value={receiver}
-          onChangeText={(receiver) => setReceiver(receiver)}
+          value={newTransfer.receiver}
+          onChangeText={(receiver) =>
+            setNewTransfer({ ...newTransfer, receiver })
+          }
         />
         <TextInput
           label="Numer konta"
           style={styles.input}
-          value={bill}
-          onChangeText={(bill) => setBill(bill)}
+          value={newTransfer.bill}
+          onChangeText={(bill) => setNewTransfer({ ...newTransfer, bill })}
           maxLength={26}
           keyboardType="numeric"
         />
         <TextInput
           label="Kwota"
           style={styles.input}
-          value={amount}
-          onChangeText={(amount) => setAmount(amount)}
+          value={newTransfer.amount}
+          onChangeText={(amount) => setNewTransfer({ ...newTransfer, amount })}
           keyboardType="numeric"
         />
         <TextInput
           label="Tytułem"
           style={styles.input}
-          value={title}
-          onChangeText={(title) => setTitle(title)}
+          value={newTransfer.title}
+          onChangeText={(title) => setNewTransfer({ ...newTransfer, title })}
           maxLength={30}
         />
       </View>
