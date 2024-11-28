@@ -1,68 +1,132 @@
 {
-  "transactions": [
+  "users": [
     {
       "id": 1,
-      "title": "Groceries",
-      "date": 1699891200000,
-      "amount": 150.45,
-      "direction": "out",
-      "type": "shopping"
+      "login": "admin",
+      "password": "$2a$12$GSt.MmWG64O9HBSj5D.WAen7.SOn32cKaoxqDWy5FryT3ehIy3oAu"
     },
     {
       "id": 2,
-      "title": "Electricity bill",
-      "date": 1699804800000,
-      "amount": 230.89,
-      "direction": "out",
-      "type": "bills"
+      "login": "user",
+      "password": "$2a$12$Yy4bLCINnvTHkCRrymp5uujaTZ21IJav87wYPfkjoVqVsCt.0mYAK"
+    }
+  ],
+  "accounts": [
+    {
+      "id": 1,
+      "userId": 1,
+      "accountNumber": "1234567890",
+      "balance": 3000.0
+    },
+    {
+      "id": 2,
+      "userId": 1,
+      "accountNumber": "2345678901",
+      "balance": 5000.0
     },
     {
       "id": 3,
-      "title": "Gas Station",
-      "date": 1699459200000,
-      "amount": 300,
-      "direction": "out",
-      "type": "car"
+      "userId": 2,
+      "accountNumber": "3456789012",
+      "balance": 1000.0
     },
     {
       "id": 4,
-      "title": "Netflix subscription",
-      "date": 1699362800000,
-      "amount": 50,
-      "direction": "out",
-      "type": "subscription"
+      "userId": 2,
+      "accountNumber": "4567890123",
+      "balance": 800.0
+    }
+  ],
+  "transactions": [
+    {
+      "id": 1,
+      "title": "Money sent to user",
+      "timestamp": 1700000000,
+      "amount": 200.5,
+      "senderAccountNumber": "1234567890",
+      "receiverAccountNumber": "3456789012",
+      "icon": "account-outline"
+    },
+    {
+      "id": 2,
+      "title": "Money received from admin",
+      "timestamp": 1700003600,
+      "amount": 200.35,
+      "senderAccountNumber": "1234567890",
+      "receiverAccountNumber": "3456789012",
+      "icon": "account-outline"
+    },
+    {
+      "id": 3,
+      "title": "Gift for family",
+      "timestamp": 1700007200,
+      "amount": 150.0,
+      "senderAccountNumber": "1234567890",
+      "receiverAccountNumber": "8765432109",
+      "icon": "cart"
+    },
+    {
+      "id": 4,
+      "title": "Salary received",
+      "timestamp": 1700010800,
+      "amount": 2500.0,
+      "senderAccountNumber": "2345678901",
+      "receiverAccountNumber": "9876543210",
+      "icon": "briefcase"
     },
     {
       "id": 5,
-      "title": "Transfer from a friend",
-      "date": 1699276400000,
-      "amount": 120,
-      "direction": "in",
-      "type": "personalTransfer"
+      "title": "Electricity bill",
+      "timestamp": 1700014400,
+      "amount": 100.22,
+      "senderAccountNumber": "1234567890",
+      "receiverAccountNumber": "8765432109",
+      "icon": "lightbulb"
     },
     {
       "id": 6,
-      "title": "PC FIX",
-      "date": 1699999900000,
-      "amount": 60,
-      "direction": "out",
-      "type": "service"
+      "title": "Rent payment",
+      "timestamp": 1700020000,
+      "amount": 1500.0,
+      "senderAccountNumber": "2345678901",
+      "receiverAccountNumber": "9876543210",
+      "icon": "bank"
     },
     {
-      "id": "124a",
-      "title": "Netflix",
-      "date": 1732781266369,
-      "amount": "60",
-      "direction": "out",
-      "type": "personalTransfer"
+      "id": 7,
+      "title": "Bonus received",
+      "timestamp": 1700023600,
+      "amount": 1000.0,
+      "senderAccountNumber": "9876543210",
+      "receiverAccountNumber": "2345678901",
+      "icon": "credit-card"
     },
     {
-      "id": "1e62",
-      "title": "Kanapki",
-      "date": 1732781471228,
-      "amount": "100",
-      "direction": "out",
-      "type": "personalTransfer"
+      "id": 8,
+      "title": "Shopping expenses",
+      "timestamp": 1700027200,
+      "amount": 250.75,
+      "senderAccountNumber": "8765432109",
+      "receiverAccountNumber": "1234567890",
+      "icon": "cart"
+    },
+    {
+      "id": 9,
+      "title": "Received refund",
+      "timestamp": 1700030800,
+      "amount": 200.0,
+      "senderAccountNumber": "8765432109",
+      "receiverAccountNumber": "9876543210",
+      "icon": "help-circle"
+    },
+    {
+      "id": 10,
+      "title": "Investment",
+      "timestamp": 1700034400,
+      "amount": 500.0,
+      "senderAccountNumber": "2345678901",
+      "receiverAccountNumber": "8765432109",
+      "icon": "tools"
     }
   ]
 }
