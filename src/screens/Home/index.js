@@ -5,11 +5,13 @@ import { Text, useTheme, Button } from 'react-native-paper';
 import TransactionsListComponent from './transactionsListComponent';
 import { useIsFocused } from '@react-navigation/native';
 import axios from 'axios';
+import {useUserContext} from "../../context/UserContext";
 
 function HomeScreen({ navigation }) {
   const isFocused = useIsFocused();
   const theme = useTheme();
   const [transactionList, setTransactionList] = useState([]);
+  const {getBalance} = useUserContext();
 
   useEffect(() => {
     axios
@@ -48,7 +50,7 @@ function HomeScreen({ navigation }) {
           Balance
         </Text>
         <Text style={{ ...styles.text, fontSize: 32, marginBottom: 30 }}>
-          $18.500
+          ${getBalance()},
         </Text>
         <Text style={{ ...styles.text, fontSize: 18 }}>
           **** **** **** 8888
