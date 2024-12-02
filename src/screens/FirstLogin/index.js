@@ -1,24 +1,24 @@
 import { useState } from 'react';
 import { Text, TextInput, Button, HelperText } from 'react-native-paper';
 import { View, StyleSheet } from 'react-native';
+import {useUserContext} from "../../context/UserContext";
 
 function FirstLogin({ navigation }) {
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(false);
+  const {authenticated} = useUserContext();
 
   // TODO: proper authentication
-  const authenticated = (login, password) => {
-    return login === 'admin' && password === 'admin';
-  };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!login || !password) return;
 
-    if (authenticated(login, password)) {
+    const isAuthenticated = await authenticated(login, password);
+    if (isAuthenticated) {
       navigation.reset({
         index: 0,
-        routes: [{ name: 'Login', params: { correctPin: null } }],
+        routes: [{name: 'Login', params: {correctPin: null}}],
       });
     } else {
       setError(true);
@@ -63,7 +63,6 @@ function FirstLogin({ navigation }) {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 16,
     gap: 10,
     padding: 16,
     flex: 1,
