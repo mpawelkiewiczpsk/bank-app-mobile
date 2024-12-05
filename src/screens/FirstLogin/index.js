@@ -7,36 +7,37 @@ import * as SecureStore from 'expo-secure-store';
 function FirstLogin({ navigation }) {
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState(false);
+  const [error, setError] = useState('');
 
   // TODO: proper authentication
-  const authenticated = (login, password) => {
-    return onLogin({ login, password }).then(async (data) => {
-      if (data?.length > 0) {
-        await SecureStore.setItemAsync('idUser', JSON.stringify(data[0]?.id));
+  const authenticate = (login, password) => {
+    return onLogin({ login, password })
+      .then(async (data) => {
+        if (data?.length > 0) {
+          await SecureStore.setItemAsync('idUser', JSON.stringify(data[0]?.id));
 
-        navigation.reset({
-          index: 0,
-          routes: [{ name: 'Login', params: { correctPin: null } }],
-        });
-      } else {
-        setError(true);
-        setPassword('');
-      }
-
-      return true;
-    });
+          navigation.reset({
+            index: 0,
+            routes: [{ name: 'Login', params: { correctPin: null } }],
+          });
+        } else {
+          setError('Invalid username or password. Please try again.');
+          setPassword('');
+        }
+      })
+      .catch(() => {
+        setError('Internal server error.');
+      });
   };
 
   const handleSubmit = async () => {
     if (!login || !password) return;
-
-    await authenticated(login, password);
+    await authenticate(login, password);
   };
 
   const handleTextChange = (setter, text) => {
     setter(text.trim());
-    setError(false);
+    setError(null);
   };
 
   return (
@@ -60,7 +61,7 @@ function FirstLogin({ navigation }) {
         error={error}
       />
       <HelperText type="error" style={styles.helper} visible={error}>
-        Invalid username or password. Please try again.
+        {error}
       </HelperText>
       <Button mode="contained" style={styles.button} onPress={handleSubmit}>
         Sign in
