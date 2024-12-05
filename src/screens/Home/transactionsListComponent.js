@@ -3,10 +3,17 @@ import { View, StyleSheet } from 'react-native';
 import { Icon, Text, useTheme } from 'react-native-paper';
 import dayjs from 'dayjs';
 
+function limitText(text, maxLength) {
+  if (text.length > maxLength) {
+    return text.slice(0, maxLength - 3) + '...';
+  }
+  return text;
+}
+
 const TransactionsListComponent = ({ transaction }) => {
   const theme = useTheme();
 
-  const { title, date, amount, direction, type } = transaction;
+  const { title, timestamp, amount, direction, icon } = transaction;
 
   const iconMap = {
     shopping: 'cart',
@@ -36,14 +43,16 @@ const TransactionsListComponent = ({ transaction }) => {
         }}
       >
         <Icon
-          source={iconMap[type] || iconMap.other}
+          source={iconMap[icon] || iconMap.other}
           color={theme.colors.primary}
           size={48}
         />
       </View>
       <View style={{ flexDirection: 'column', marginLeft: 15, gap: 5 }}>
-        <Text style={{ fontSize: 16, fontWeight: '900' }}>{title}</Text>
-        <Text>{dayjs(date).format('DD-MM-YYYY hh:mm')}</Text>
+        <Text style={{ fontSize: 16, fontWeight: '900' }}>
+          {limitText(title, 20)}
+        </Text>
+        <Text>{dayjs(timestamp * 1000).format('DD-MM-YYYY hh:mm')}</Text>
       </View>
       <View style={{ flex: 1, justifyContent: 'center' }}>
         <Text style={{ textAlign: 'right', fontSize: 20, fontWeight: '900' }}>

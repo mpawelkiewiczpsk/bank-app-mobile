@@ -1,21 +1,27 @@
 import { getTransactions } from './transactions';
 
 export const getHistory = async (accountNumber, limit) => {
-  const transactions = await Promise.all([
-    getTransactions(accountNumber, 'sender'),
-    getTransactions(accountNumber, 'receiver'),
-  ]);
+  try {
+    let sent = await getTransactions(accountNumber, 'sender');
+    let received = await getTransactions(accountNumber, 'receiver');
 
-  const removeDuplicates = (acc, obj) => {
-    if (!acc.find((e) => e.id === obj.id)) {
-      acc.push(obj);
-    }
-    return acc;
-  };
+    sent = sent.map((t) => ({ ...t, direction: 'out' }));
+    received = received.map((t) => ({ ...t, direction: 'in' }));
 
-  return transactions
-    .flat()
-    .toSorted((a, b) => Number(a.id) - Number(b.id))
-    .reduce(removeDuplicates, [])
-    .slice(0, limit);
+    return (
+      [...sent, ...received]
+        // remove duplicates
+        .reduce((acc, obj) => {
+          if (!acc.find((e) => e.id === obj.id)) {
+            acc.push(obj);
+          }
+          return acc;
+        }, [])
+        // sort by timestamp descending
+        .sort((a, b) => b.timestamp - a.timestamp)
+        .slice(0, limit)
+    );
+  } catch (err) {
+    console.log(err);
+  }
 };

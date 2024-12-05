@@ -22,7 +22,7 @@ function HomeScreen({ navigation }) {
     async function getHomeScreenData() {
       const user = {
         ...userInfo,
-        id: SecureStore.getItem('idUser'),
+        id: SecureStore.getItem('idUser').replace(/"/g, ''),
       };
       const accounts = await getAccounts(user.id);
       const transactions = await getHistory(
