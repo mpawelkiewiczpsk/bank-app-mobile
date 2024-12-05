@@ -41,92 +41,92 @@
     {
       "id": 1,
       "title": "Money sent to user",
-      "timestamp": 1700000000,
+      "timestamp": 1725800391,
       "amount": 200.5,
       "senderAccountNumber": "1234567890",
       "receiverAccountNumber": "3456789012",
-      "icon": "account-outline"
+      "icon": "personalTransfer"
     },
     {
       "id": 2,
       "title": "Money received from admin",
-      "timestamp": 1700003600,
+      "timestamp": 1728279413,
       "amount": 200.35,
-      "senderAccountNumber": "1234567890",
-      "receiverAccountNumber": "3456789012",
-      "icon": "account-outline"
+      "senderAccountNumber": "3456789012",
+      "receiverAccountNumber": "1234567890",
+      "icon": "personalTransfer"
     },
     {
       "id": 3,
       "title": "Gift for family",
-      "timestamp": 1700007200,
+      "timestamp": 1704800856,
       "amount": 150.0,
       "senderAccountNumber": "1234567890",
       "receiverAccountNumber": "8765432109",
-      "icon": "cart"
+      "icon": "shopping"
     },
     {
       "id": 4,
       "title": "Salary received",
-      "timestamp": 1700010800,
+      "timestamp": 1724653396,
       "amount": 2500.0,
-      "senderAccountNumber": "2345678901",
-      "receiverAccountNumber": "9876543210",
-      "icon": "briefcase"
+      "senderAccountNumber": "9876543210",
+      "receiverAccountNumber": "2345678901",
+      "icon": "salary"
     },
     {
       "id": 5,
       "title": "Electricity bill",
-      "timestamp": 1700014400,
+      "timestamp": 1734265532,
       "amount": 100.22,
       "senderAccountNumber": "1234567890",
       "receiverAccountNumber": "8765432109",
-      "icon": "lightbulb"
+      "icon": "bills"
     },
     {
       "id": 6,
       "title": "Rent payment",
-      "timestamp": 1700020000,
+      "timestamp": 1720408441,
       "amount": 1500.0,
       "senderAccountNumber": "2345678901",
       "receiverAccountNumber": "9876543210",
-      "icon": "bank"
+      "icon": "payment"
     },
     {
       "id": 7,
       "title": "Bonus received",
-      "timestamp": 1700023600,
+      "timestamp": 1729516011,
       "amount": 1000.0,
       "senderAccountNumber": "9876543210",
       "receiverAccountNumber": "2345678901",
-      "icon": "credit-card"
+      "icon": "salary"
     },
     {
       "id": 8,
       "title": "Shopping expenses",
-      "timestamp": 1700027200,
+      "timestamp": 1727716097,
       "amount": 250.75,
       "senderAccountNumber": "8765432109",
       "receiverAccountNumber": "1234567890",
-      "icon": "cart"
+      "icon": "shopping"
     },
     {
       "id": 9,
       "title": "Received refund",
-      "timestamp": 1700030800,
+      "timestamp": 1730438888,
       "amount": 200.0,
       "senderAccountNumber": "8765432109",
       "receiverAccountNumber": "9876543210",
-      "icon": "help-circle"
+      "icon": "service"
     },
     {
       "id": 10,
       "title": "Investment",
-      "timestamp": 1700034400,
+      "timestamp": 1730863974,
       "amount": 500.0,
       "senderAccountNumber": "2345678901",
       "receiverAccountNumber": "8765432109",
-      "icon": "tools"
+      "icon": "salary"
     }
   ]
 }
