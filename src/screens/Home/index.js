@@ -4,25 +4,38 @@ import { Ionicons } from '@expo/vector-icons';
 import { Text, useTheme, Button } from 'react-native-paper';
 import TransactionsListComponent from './transactionsListComponent';
 import { useIsFocused } from '@react-navigation/native';
-import { getHistory } from '../../api/history';
 import { useUserContext } from '../../contexts/UserContext';
+import { getAccounts } from '../../api/accounts';
 import * as SecureStore from 'expo-secure-store';
+import { getHistory } from '../../api/history';
+
+const TRANSACTIONS_IN_HISTORY = 3;
 
 function HomeScreen({ navigation }) {
   const { userInfo, setUserInfo } = useUserContext();
   const isFocused = useIsFocused();
   const theme = useTheme();
   const [transactionList, setTransactionList] = useState([]);
+  const [accountList, setAccountList] = useState([]);
 
   useEffect(() => {
-    getHistory().then((data) => {
-      console.log(data);
-    });
+    async function getHomeScreenData() {
+      const user = {
+        ...userInfo,
+        id: SecureStore.getItem('idUser'),
+      };
+      const accounts = await getAccounts(user.id);
+      const transactions = await getHistory(
+        accounts[0].accountNumber,
+        TRANSACTIONS_IN_HISTORY,
+      );
 
-    setUserInfo({
-      ...userInfo,
-      id: SecureStore.getItem('idUser'),
-    });
+      setUserInfo(user);
+      setAccountList(accounts);
+      setTransactionList(transactions);
+    }
+
+    getHomeScreenData();
   }, [isFocused]);
 
   useLayoutEffect(() => {
