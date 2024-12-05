@@ -4,22 +4,25 @@ import { Ionicons } from '@expo/vector-icons';
 import { Text, useTheme, Button } from 'react-native-paper';
 import TransactionsListComponent from './transactionsListComponent';
 import { useIsFocused } from '@react-navigation/native';
-import axios from 'axios';
+import { getHistory } from '../../api/history';
+import { useUserContext } from '../../contexts/UserContext';
+import * as SecureStore from 'expo-secure-store';
 
 function HomeScreen({ navigation }) {
+  const { userInfo, setUserInfo } = useUserContext();
   const isFocused = useIsFocused();
   const theme = useTheme();
   const [transactionList, setTransactionList] = useState([]);
 
   useEffect(() => {
-    axios
-      .get('http://172.20.10.2:3000/transactions?_sort=-id&_page=1&_per_page=3')
-      .then(function (response) {
-        setTransactionList(response.data.data);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    getHistory().then((data) => {
+      console.log(data);
+    });
+
+    setUserInfo({
+      ...userInfo,
+      id: SecureStore.getItem('idUser'),
+    });
   }, [isFocused]);
 
   useLayoutEffect(() => {

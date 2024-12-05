@@ -2,13 +2,13 @@
   "users": [
     {
       "id": 1,
-      "login": "admin",
-      "password": "$2a$12$GSt.MmWG64O9HBSj5D.WAen7.SOn32cKaoxqDWy5FryT3ehIy3oAu"
+      "login": "user1",
+      "password": "user1"
     },
     {
       "id": 2,
-      "login": "user",
-      "password": "$2a$12$Yy4bLCINnvTHkCRrymp5uujaTZ21IJav87wYPfkjoVqVsCt.0mYAK"
+      "login": "user2",
+      "password": "user2"
     }
   ],
   "accounts": [

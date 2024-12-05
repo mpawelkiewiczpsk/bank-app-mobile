@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { Text, TextInput, Button, HelperText } from 'react-native-paper';
 import { View, StyleSheet } from 'react-native';
+import { onLogin } from '../../api/auth';
+import * as SecureStore from 'expo-secure-store';
 
 function FirstLogin({ navigation }) {
   const [login, setLogin] = useState('');
@@ -9,21 +11,27 @@ function FirstLogin({ navigation }) {
 
   // TODO: proper authentication
   const authenticated = (login, password) => {
-    return login === 'admin' && password === 'admin';
+    return onLogin({ login, password }).then(async (data) => {
+      if (data?.length > 0) {
+        await SecureStore.setItemAsync('idUser', JSON.stringify(data[0]?.id));
+
+        navigation.reset({
+          index: 0,
+          routes: [{ name: 'Login', params: { correctPin: null } }],
+        });
+      } else {
+        setError(true);
+        setPassword('');
+      }
+
+      return true;
+    });
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!login || !password) return;
 
-    if (authenticated(login, password)) {
-      navigation.reset({
-        index: 0,
-        routes: [{ name: 'Login', params: { correctPin: null } }],
-      });
-    } else {
-      setError(true);
-      setPassword('');
-    }
+    await authenticated(login, password);
   };
 
   const handleTextChange = (setter, text) => {
