@@ -1,11 +1,13 @@
 import axiosInstance from './axiosInstance';
 
-export const getHistory = () =>
+const getHistory = () =>
   axiosInstance
     .get('transactions?_sort=-id&_page=1&_per_page=3')
-    .then(function ({ data }) {
+    .then(({ data }) => {
       return data?.data;
     })
-    .catch(function (error) {
+    .catch((error) => {
       console.log(error);
     });
+
+export default getHistory;
