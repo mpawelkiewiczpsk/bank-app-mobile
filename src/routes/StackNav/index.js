@@ -3,6 +3,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import LoginScreen from '../../screens/Login';
 import DrawerNav from '../DrawerNav';
 import FirstLogin from '../../screens/FirstLogin';
+import HistoryScreen from '../../screens/History';
 import * as SecureStore from 'expo-secure-store';
 
 const Stack = createNativeStackNavigator();
@@ -47,6 +48,7 @@ function StackNav() {
         />
         <Stack.Screen name="FirstLogin" component={FirstLogin} />
         <Stack.Screen name="DrawerNav" component={DrawerNav} options={header} />
+        <Stack.Screen name="History" component={HistoryScreen} />
       </Stack.Navigator>
     );
   }

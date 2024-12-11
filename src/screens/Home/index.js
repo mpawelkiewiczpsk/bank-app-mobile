@@ -2,7 +2,7 @@ import { useLayoutEffect, useEffect, useState } from 'react';
 import { View, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { Text, useTheme, Button, Menu, Snackbar } from 'react-native-paper';
-import TransactionsListComponent from './transactionsListComponent';
+import TransactionsListComponent from './../../components/TransactionsListComponent';
 import { useIsFocused } from '@react-navigation/native';
 import { useUserContext } from '../../contexts/UserContext';
 import { getAccounts } from '../../api/accounts';
@@ -146,7 +146,11 @@ function HomeScreen({ navigation }) {
           icon="clock"
           mode="outlined"
           style={styles.button}
-          onPress={() => console.log('Pressed')}
+          onPress={() =>
+            navigation.navigate('History', {
+              accountNumber: selectedAccount.accountNumber,
+            })
+          }
         >
           History
         </Button>
@@ -206,5 +210,6 @@ const styles = StyleSheet.create({
     fontSize: 24,
     alignSelf: 'flex-start',
     marginTop: 15,
+    marginBottom: 15,
   },
 });
