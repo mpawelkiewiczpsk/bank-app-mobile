@@ -1,14 +1,14 @@
-// HomeScreen.js
 import { useLayoutEffect, useEffect, useState } from 'react';
 import { View, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { Text, useTheme, Button, Menu } from 'react-native-paper';
+import { Text, useTheme, Button, Menu, Snackbar } from 'react-native-paper';
 import TransactionsListComponent from './transactionsListComponent';
 import { useIsFocused } from '@react-navigation/native';
 import { useUserContext } from '../../contexts/UserContext';
 import { getAccounts } from '../../api/accounts';
 import * as SecureStore from 'expo-secure-store';
 import { getHistory } from '../../api/history';
+import * as Clipboard from 'expo-clipboard';
 
 const TRANSACTIONS_IN_HISTORY = 3;
 
@@ -20,6 +20,16 @@ function HomeScreen({ navigation }) {
   const [accountList, setAccountList] = useState([]);
   const [selectedAccount, setSelectedAccount] = useState(null);
   const [menuVisible, setMenuVisible] = useState(false);
+  const [snackbarVisible, setSnackbarVisible] = useState(false);
+
+  const copyAccountNumberToClipboard = () => {
+    if (selectedAccount) {
+      Clipboard.setStringAsync(selectedAccount.accountNumber);
+      setSnackbarVisible(true);
+    } else {
+      console.log('No account selected to copy.');
+    }
+  };
 
   useEffect(() => {
     async function getHomeScreenData() {
@@ -102,7 +112,7 @@ function HomeScreen({ navigation }) {
           ${selectedAccount?.balance || '0.00'}
         </Text>
         <Text style={{ ...styles.text, fontSize: 18 }}>
-          **** **** **** {selectedAccount?.accountNumber.slice(-4) || '----'}
+          **** **** **** {selectedAccount?.accountNumber.slice(-4) || '****'}
         </Text>
       </View>
       <View style={styles.buttonRow}>
@@ -128,7 +138,7 @@ function HomeScreen({ navigation }) {
           icon="content-copy"
           mode="outlined"
           style={styles.button}
-          onPress={() => console.log('Pressed')}
+          onPress={copyAccountNumberToClipboard}
         >
           Copy number
         </Button>
@@ -155,6 +165,13 @@ function HomeScreen({ navigation }) {
           />
         ))}
       </ScrollView>
+      <Snackbar
+        visible={snackbarVisible}
+        onDismiss={() => setSnackbarVisible(false)}
+        duration={3000}
+      >
+        Account number copied to clipboard!
+      </Snackbar>
     </View>
   );
 }
