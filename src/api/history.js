@@ -1,11 +1,27 @@
-import axiosInstance from './axiosInstance';
+import { getTransactions } from './transactions';
 
-export const getHistory = () =>
-  axiosInstance
-    .get('transactions?_sort=-id&_page=1&_per_page=3')
-    .then(function ({ data }) {
-      return data?.data;
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+export const getHistory = async (accountNumber, limit) => {
+  try {
+    let sent = await getTransactions(accountNumber, 'sender');
+    let received = await getTransactions(accountNumber, 'receiver');
+
+    sent = sent.map((t) => ({ ...t, direction: 'out' }));
+    received = received.map((t) => ({ ...t, direction: 'in' }));
+
+    return (
+      [...sent, ...received]
+        // remove duplicates
+        .reduce((acc, obj) => {
+          if (!acc.find((e) => e.id === obj.id)) {
+            acc.push(obj);
+          }
+          return acc;
+        }, [])
+        // sort by timestamp descending
+        .sort((a, b) => b.timestamp - a.timestamp)
+        .slice(0, limit)
+    );
+  } catch (err) {
+    console.log(err);
+  }
+};
