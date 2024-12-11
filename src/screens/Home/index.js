@@ -1,7 +1,8 @@
+// HomeScreen.js
 import { useLayoutEffect, useEffect, useState } from 'react';
 import { View, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { Text, useTheme, Button } from 'react-native-paper';
+import { Text, useTheme, Button, Menu } from 'react-native-paper';
 import TransactionsListComponent from './transactionsListComponent';
 import { useIsFocused } from '@react-navigation/native';
 import { useUserContext } from '../../contexts/UserContext';
@@ -17,6 +18,8 @@ function HomeScreen({ navigation }) {
   const theme = useTheme();
   const [transactionList, setTransactionList] = useState([]);
   const [accountList, setAccountList] = useState([]);
+  const [selectedAccount, setSelectedAccount] = useState(null);
+  const [menuVisible, setMenuVisible] = useState(false);
 
   useEffect(() => {
     async function getHomeScreenData() {
@@ -25,13 +28,15 @@ function HomeScreen({ navigation }) {
         id: SecureStore.getItem('idUser').replace(/"/g, ''),
       };
       const accounts = await getAccounts(user.id);
+      const defaultAccount = accounts[0];
       const transactions = await getHistory(
-        accounts[0].accountNumber,
+        defaultAccount.accountNumber,
         TRANSACTIONS_IN_HISTORY,
       );
 
       setUserInfo(user);
       setAccountList(accounts);
+      setSelectedAccount(defaultAccount);
       setTransactionList(transactions);
     }
 
@@ -48,8 +53,38 @@ function HomeScreen({ navigation }) {
           <Ionicons name="menu" size={24} color="black" />
         </TouchableOpacity>
       ),
+      headerRight: () => (
+        <Menu
+          visible={menuVisible}
+          onDismiss={() => setMenuVisible(false)}
+          anchor={
+            <TouchableOpacity
+              onPress={() => setMenuVisible(true)}
+              style={{ padding: 10 }}
+            >
+              <Ionicons name="swap-horizontal" size={24} color="black" />
+            </TouchableOpacity>
+          }
+        >
+          {accountList.map((account) => (
+            <Menu.Item
+              key={account.accountNumber}
+              onPress={async () => {
+                setSelectedAccount(account);
+                setMenuVisible(false);
+                const transactions = await getHistory(
+                  account.accountNumber,
+                  TRANSACTIONS_IN_HISTORY,
+                );
+                setTransactionList(transactions);
+              }}
+              title={`**** **** **** ${account.accountNumber.slice(-4)}`}
+            />
+          ))}
+        </Menu>
+      ),
     });
-  }, [navigation]);
+  }, [navigation, menuVisible, accountList]);
 
   return (
     <View style={styles.container}>
@@ -64,10 +99,10 @@ function HomeScreen({ navigation }) {
           Balance
         </Text>
         <Text style={{ ...styles.text, fontSize: 32, marginBottom: 30 }}>
-          $18.500
+          ${selectedAccount?.balance || '0.00'}
         </Text>
         <Text style={{ ...styles.text, fontSize: 18 }}>
-          **** **** **** 8888
+          **** **** **** {selectedAccount?.accountNumber.slice(-4) || '----'}
         </Text>
       </View>
       <View style={styles.buttonRow}>

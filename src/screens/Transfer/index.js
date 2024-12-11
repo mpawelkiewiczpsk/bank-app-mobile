@@ -7,7 +7,7 @@ import {
   FlatList,
   Alert,
 } from 'react-native';
-import axios from 'axios';
+import axiosInstance from '../../api/axiosInstance';
 import { Ionicons } from '@expo/vector-icons';
 import { Button, Text, TextInput } from 'react-native-paper';
 
@@ -46,8 +46,8 @@ function TransferScreen({ navigation }) {
   };
 
   const onConfirm = () => {
-    axios
-      .post('http://172.20.10.2:3000/transactions', {
+    axiosInstance
+      .post('transactions', {
         title: newTransfer.title,
         date: new Date().getTime(),
         amount: newTransfer.amount,
