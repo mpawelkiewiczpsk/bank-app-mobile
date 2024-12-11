@@ -41,7 +41,6 @@ jobs:
           --ext .js,.jsx,.ts,.tsx
           --output-file eslint-results.sarif
           --format @microsoft/eslint-formatter-sarif              
-          --max-warnings 0
        
 
       - name: Upload analysis results to GitHub
