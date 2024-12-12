@@ -2,7 +2,7 @@ import { useLayoutEffect, useEffect, useState } from 'react';
 import { View, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { Text, useTheme, Snackbar } from 'react-native-paper';
-import TransactionsListComponent from './../../components/TransactionsListComponent';
+import TransactionsListComponent from '../../components/TransactionsListComponent';
 import { useIsFocused } from '@react-navigation/native';
 import { useUserContext } from '../../contexts/UserContext';
 import { getAccounts } from '../../api/accounts';
