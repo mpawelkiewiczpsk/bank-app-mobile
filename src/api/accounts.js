@@ -9,3 +9,23 @@ export const getAccounts = (userId) =>
     .catch(function (error) {
       console.log(error);
     });
+
+export const checkIfAccountExist = (accountNumber) =>
+  axiosInstance
+    .get(`accounts?accountNumber=${accountNumber}`)
+    .then(function ({ data }) {
+      return data?.length > 0;
+    })
+    .catch(function (error) {
+      return null;
+    });
+
+export const updateBalance = (id, balance) =>
+  axiosInstance
+    .patch(`accounts/${id}`, { balance })
+    .then(function () {
+      return true;
+    })
+    .catch(function (error) {
+      return null;
+    });

@@ -44,7 +44,10 @@ function HomeScreen({ navigation }) {
         TRANSACTIONS_IN_HISTORY,
       );
 
-      setUserInfo(user);
+      setUserInfo({
+        ...user,
+        accounts,
+      });
       setAccountList(accounts);
       setSelectedAccount(defaultAccount);
       setTransactionList(transactions);

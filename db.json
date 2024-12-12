@@ -1,45 +1,45 @@
 {
   "users": [
     {
-      "id": 1,
+      "id": "1",
       "login": "user1",
       "password": "user1"
     },
     {
-      "id": 2,
+      "id": "2",
       "login": "user2",
       "password": "user2"
     }
   ],
   "accounts": [
     {
-      "id": 1,
+      "id": "1",
       "userId": 1,
       "accountNumber": "55 0387 7629 6214 1749 8119 1515",
-      "balance": 3000.0
+      "balance": 2470
     },
     {
-      "id": 2,
+      "id": "2",
       "userId": 1,
       "accountNumber": "69 4317 2269 2826 5226 8712 4775",
-      "balance": 5000.0
+      "balance": 5000
     },
     {
-      "id": 3,
+      "id": "3",
       "userId": 2,
       "accountNumber": "99 7077 4959 3638 8378 7952 4019",
-      "balance": 1000.0
+      "balance": 1000
     },
     {
-      "id": 4,
+      "id": "4",
       "userId": 2,
       "accountNumber": "35 9111 8029 0025 6166 5181 3151",
-      "balance": 800.0
+      "balance": 800
     }
   ],
   "transactions": [
     {
-      "id": 1,
+      "id": "1",
       "title": "Money sent to user",
       "timestamp": 1725800391,
       "amount": 200.5,
@@ -48,7 +48,7 @@
       "icon": "personalTransfer"
     },
     {
-      "id": 2,
+      "id": "2",
       "title": "Money received from admin",
       "timestamp": 1728279413,
       "amount": 200.35,
@@ -57,25 +57,25 @@
       "icon": "personalTransfer"
     },
     {
-      "id": 3,
+      "id": "3",
       "title": "Gift for family",
       "timestamp": 1704800856,
-      "amount": 150.0,
+      "amount": 150,
       "senderAccountNumber": "55 0387 7629 6214 1749 8119 1515",
       "receiverAccountNumber": "8765432109",
       "icon": "shopping"
     },
     {
-      "id": 4,
+      "id": "4",
       "title": "Salary received",
       "timestamp": 1724653396,
-      "amount": 2500.0,
+      "amount": 2500,
       "senderAccountNumber": "9876543210",
       "receiverAccountNumber": "69 4317 2269 2826 5226 8712 4775",
       "icon": "salary"
     },
     {
-      "id": 5,
+      "id": "5",
       "title": "Electricity bill",
       "timestamp": 1734265532,
       "amount": 100.22,
@@ -84,25 +84,25 @@
       "icon": "bills"
     },
     {
-      "id": 6,
+      "id": "6",
       "title": "Rent payment",
       "timestamp": 1720408441,
-      "amount": 1500.0,
+      "amount": 1500,
       "senderAccountNumber": "69 4317 2269 2826 5226 8712 4775",
       "receiverAccountNumber": "9876543210",
       "icon": "payment"
     },
     {
-      "id": 7,
+      "id": "7",
       "title": "Bonus received",
       "timestamp": 1729516011,
-      "amount": 1000.0,
+      "amount": 1000,
       "senderAccountNumber": "9876543210",
       "receiverAccountNumber": "69 4317 2269 2826 5226 8712 4775",
       "icon": "salary"
     },
     {
-      "id": 8,
+      "id": "8",
       "title": "Shopping expenses",
       "timestamp": 1727716097,
       "amount": 250.75,
@@ -111,22 +111,40 @@
       "icon": "shopping"
     },
     {
-      "id": 9,
+      "id": "9",
       "title": "Received refund",
       "timestamp": 1730438888,
-      "amount": 200.0,
+      "amount": 200,
       "senderAccountNumber": "8765432109",
       "receiverAccountNumber": "9876543210",
       "icon": "service"
     },
     {
-      "id": 10,
+      "id": "10",
       "title": "Investment",
       "timestamp": 1730863974,
-      "amount": 500.0,
+      "amount": 500,
       "senderAccountNumber": "69 4317 2269 2826 5226 8712 4775",
       "receiverAccountNumber": "8765432109",
       "icon": "salary"
+    },
+    {
+      "id": "c1b3",
+      "title": "Za maslo",
+      "timestamp": 1733991404213,
+      "amount": "530",
+      "senderAccountNumber": "55 0387 7629 6214 1749 8119 1515",
+      "receiverAccountNumber": "99 7077 4959 3638 8378 7952 4019",
+      "icon": "personalTransfer"
+    },
+    {
+      "id": "564b",
+      "title": "Za maslo",
+      "timestamp": 1733991550887,
+      "amount": "530",
+      "senderAccountNumber": "55 0387 7629 6214 1749 8119 1515",
+      "receiverAccountNumber": "99 7077 4959 3638 8378 7952 4019",
+      "icon": "personalTransfer"
     }
   ]
 }

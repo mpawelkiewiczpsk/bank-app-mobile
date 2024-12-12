@@ -11,3 +11,12 @@ export const getTransactions = (accountNumber, role = 'sender') => {
       console.log(error);
     });
 };
+
+export const addNewTransaction = (data) => {
+  return axiosInstance
+    .post('transactions', data)
+    .then(function () {})
+    .catch(function (error) {
+      console.log(error);
+    });
+};

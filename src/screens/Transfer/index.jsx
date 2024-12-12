@@ -7,12 +7,16 @@ import {
   FlatList,
   Alert,
 } from 'react-native';
-import axiosInstance from '../../api/axiosInstance';
 import { Ionicons } from '@expo/vector-icons';
 import { Button, Text, TextInput } from 'react-native-paper';
+import { useUserContext } from '../../contexts/UserContext';
+import { checkIfAccountExist, updateBalance } from '../../api/accounts';
+import { addNewTransaction } from '../../api/transactions';
 
 function TransferScreen({ navigation }) {
+  const { userInfo } = useUserContext();
   const [modalVisible, setModalVisible] = useState(false);
+  const [selectedAccountDetails, setSelectedAccountDetails] = useState({});
   const [confirmModalVisible, setConfirmModalVisible] = useState(false);
   const [newTransfer, setNewTransfer] = useState({
     selectedAccount: '',
@@ -23,14 +27,9 @@ function TransferScreen({ navigation }) {
   });
   const [transfer, setTransfer] = useState({});
 
-  const accounts = [
-    { id: '1', name: 'Rachunek 1' },
-    { id: '2', name: 'Rachunek 2' },
-    { id: '3', name: 'Rachunek 3' },
-  ];
-
   const handleSelectAccount = (account) => {
-    setNewTransfer({ ...newTransfer, selectedAccount: account.name });
+    setSelectedAccountDetails(account);
+    setNewTransfer({ ...newTransfer, selectedAccount: account.accountNumber });
     setModalVisible(false);
   };
 
@@ -46,21 +45,28 @@ function TransferScreen({ navigation }) {
   };
 
   const onConfirm = () => {
-    axiosInstance
-      .post('transactions', {
-        title: newTransfer.title,
-        date: new Date().getTime(),
-        amount: newTransfer.amount,
-        direction: 'out',
-        type: 'personalTransfer',
-      })
-      .then(function () {
+    checkIfAccountExist(newTransfer.bill).then((exist) => {
+      if (exist) {
+        addNewTransaction({
+          title: newTransfer.title,
+          timestamp: new Date().getTime(),
+          amount: newTransfer.amount,
+          senderAccountNumber: newTransfer.selectedAccount,
+          receiverAccountNumber: newTransfer.bill,
+          icon: 'personalTransfer',
+        }).then(() => {
+          setConfirmModalVisible(false);
+          Alert.alert('Sukces', 'Przelew zrobiony');
+          updateBalance(
+            selectedAccountDetails.id,
+            selectedAccountDetails.balance - newTransfer.amount,
+          );
+        });
+      } else {
         setConfirmModalVisible(false);
-        Alert.alert('Sukces', 'Przelew zrobiony');
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+        Alert.alert('Błąd', 'Podany numer konta nie istnieje');
+      }
+    });
   };
 
   useLayoutEffect(() => {
@@ -100,14 +106,16 @@ function TransferScreen({ navigation }) {
           <View style={styles.modalContent}>
             <Text style={styles.modalTitle}>Wybierz rachunek</Text>
             <FlatList
-              data={accounts}
+              data={userInfo?.accounts || []}
               keyExtractor={(item) => item.id}
               renderItem={({ item }) => (
                 <TouchableOpacity
                   style={styles.listItem}
                   onPress={() => handleSelectAccount(item)}
                 >
-                  <Text>{item.name}</Text>
+                  <Text>
+                    {item.accountNumber} ({item.balance} $)
+                  </Text>
                 </TouchableOpacity>
               )}
             />
@@ -135,9 +143,7 @@ function TransferScreen({ navigation }) {
             <Text style={styles.modalText}>
               Numer konta: {newTransfer.bill}
             </Text>
-            <Text style={styles.modalText}>
-              Kwota: {newTransfer.amount} PLN
-            </Text>
+            <Text style={styles.modalText}>Kwota: {newTransfer.amount} $</Text>
             <Text style={styles.modalText}>Tytułem: {newTransfer.title}</Text>
             <View style={styles.modalButtons}>
               <Button
@@ -173,7 +179,7 @@ function TransferScreen({ navigation }) {
           style={styles.input}
           value={newTransfer.bill}
           onChangeText={(bill) => setNewTransfer({ ...newTransfer, bill })}
-          maxLength={26}
+          maxLength={32}
           keyboardType="numeric"
         />
         <TextInput
