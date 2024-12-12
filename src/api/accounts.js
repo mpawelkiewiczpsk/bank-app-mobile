@@ -16,7 +16,7 @@ export const checkIfAccountExist = (accountNumber) =>
     .then(function ({ data }) {
       return data?.length > 0;
     })
-    .catch(function (error) {
+    .catch(function () {
       return null;
     });
 
@@ -26,6 +26,6 @@ export const updateBalance = (id, balance) =>
     .then(function () {
       return true;
     })
-    .catch(function (error) {
+    .catch(function () {
       return null;
     });
