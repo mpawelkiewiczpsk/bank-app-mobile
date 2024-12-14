@@ -82,6 +82,14 @@ function TransferScreen({ navigation }) {
     });
   }, [navigation]);
 
+  const formatBill = (bill) => {
+    const cleanedBill = bill.replace(/\D/g, '');
+    let formattedBill = cleanedBill.replace(/^(\d{2})(\d+)/, '$1 $2');
+    formattedBill = formattedBill.replace(/(\d{4})(?=\d)/g, '$1 ');
+    console.log(formattedBill.slice(0, 32))
+    return formattedBill.slice(0, 32);
+  };
+
   return (
     <View style={styles.container}>
       <Text style={{ fontSize: 30, fontWeight: 'bold', marginBottom: 30 }}>
@@ -178,7 +186,7 @@ function TransferScreen({ navigation }) {
           label="Numer konta"
           style={styles.input}
           value={newTransfer.bill}
-          onChangeText={(bill) => setNewTransfer({ ...newTransfer, bill })}
+          onChangeText={(bill) => setNewTransfer({ ...newTransfer, bill: formatBill(bill) })}
           maxLength={32}
           keyboardType="numeric"
         />
