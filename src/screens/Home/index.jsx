@@ -1,7 +1,21 @@
 import { useLayoutEffect, useEffect, useState } from 'react';
-import { View, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
+import {
+  View,
+  TouchableOpacity,
+  StyleSheet,
+  ScrollView,
+  Pressable,
+  Image,
+} from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { Text, useTheme, Button, Menu, Snackbar } from 'react-native-paper';
+import {
+  Text,
+  useTheme,
+  Button,
+  Menu,
+  Snackbar,
+  IconButton,
+} from 'react-native-paper';
 import TransactionsListComponent from '../../components/TransactionsListComponent';
 import { useIsFocused } from '@react-navigation/native';
 import { useUserContext } from '../../contexts/UserContext';
@@ -21,6 +35,32 @@ function HomeScreen({ navigation }) {
   const [selectedAccount, setSelectedAccount] = useState(null);
   const [menuVisible, setMenuVisible] = useState(false);
   const [snackbarVisible, setSnackbarVisible] = useState(false);
+  const [accountNumberVisible, setAccountNumberVisible] = useState(false);
+  const [MyAccountNumber, setMyAccountNumber] = useState('');
+
+  useEffect(() => {
+    if (selectedAccount) {
+      if (accountNumberVisible) {
+        setMyAccountNumber(selectedAccount.accountNumber);
+      } else {
+        setMyAccountNumber(censorAccountNumber(selectedAccount.accountNumber));
+      }
+    }
+  }, [selectedAccount, accountNumberVisible]);
+
+  const censorAccountNumber = (accountNumber) => {
+    const hidden = accountNumber
+      .slice(0, -4)
+      .split('')
+      .map((char) => (char === ' ' ? ' ' : '*'))
+      .join('');
+    const lastFour = accountNumber.slice(-4);
+    return hidden + lastFour;
+  };
+
+  const onShowAccountNumber = () => {
+    setAccountNumberVisible((prev) => !prev);
+  };
 
   const copyAccountNumberToClipboard = () => {
     if (selectedAccount) {
@@ -114,9 +154,16 @@ function HomeScreen({ navigation }) {
         <Text style={{ ...styles.text, fontSize: 32, marginBottom: 30 }}>
           ${selectedAccount?.balance || '0.00'}
         </Text>
-        <Text style={{ ...styles.text, fontSize: 18 }}>
-          **** **** **** {selectedAccount?.accountNumber.slice(-4) || '****'}
-        </Text>
+        <View style={styles.accountNumberRow}>
+          <Text style={{ ...styles.text, fontSize: 18 }}>
+            {MyAccountNumber}
+          </Text>
+          <IconButton
+            icon={accountNumberVisible ? 'eye-off' : 'eye'}
+            onPress={() => onShowAccountNumber()}
+            iconColor="white"
+          />
+        </View>
       </View>
       <View style={styles.buttonRow}>
         <Button
@@ -214,5 +261,10 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-start',
     marginTop: 15,
     marginBottom: 15,
+  },
+  accountNumberRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
 });
