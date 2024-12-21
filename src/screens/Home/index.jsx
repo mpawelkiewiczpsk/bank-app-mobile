@@ -66,8 +66,6 @@ function HomeScreen({ navigation }) {
     if (selectedAccount) {
       Clipboard.setStringAsync(selectedAccount.accountNumber);
       setSnackbarVisible(true);
-    } else {
-      console.log('No account selected to copy.');
     }
   };
 

@@ -23,5 +23,15 @@ module.exports = {
     'react-native/no-inline-styles': 0,
     'prettier/prettier': ['error'],
     'react/react-in-jsx-scope': 'off',
+    'no-console': 'off',
+    'no-restricted-syntax': [
+      'error',
+      {
+        selector:
+          "CallExpression[callee.object.name='console'][callee.property.name!='error']",
+        message:
+          'Only console.error is allowed. Other console methods are restricted.',
+      },
+    ],
   },
 };

@@ -1,6 +1,6 @@
 import { getTransactions } from './transactions';
 
-export const getHistory = async (accountNumber, limit) => {
+const getHistory = async (accountNumber, limit) => {
   try {
     let sent = await getTransactions(accountNumber, 'sender');
     let received = await getTransactions(accountNumber, 'receiver');
@@ -22,6 +22,8 @@ export const getHistory = async (accountNumber, limit) => {
         .slice(0, limit)
     );
   } catch (err) {
-    console.log(err);
+    return err;
   }
 };
+
+export default getHistory;

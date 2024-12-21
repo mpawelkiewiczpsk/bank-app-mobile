@@ -7,7 +7,7 @@ import { useIsFocused } from '@react-navigation/native';
 import { useUserContext } from '../../contexts/UserContext';
 import { getAccounts } from '../../api/accounts';
 import * as SecureStore from 'expo-secure-store';
-import { getHistory } from '../../api/history';
+import getHistory from '../../api/history';
 
 const TRANSACTIONS_IN_HISTORY = 100;
 
@@ -27,7 +27,6 @@ function HistoryScreen({ navigation, route }) {
         id: SecureStore.getItem('idUser').replace(/"/g, ''),
       };
       const accounts = await getAccounts(user.id);
-      const defaultAccount = accounts[0];
       const transactions = await getHistory(
         accountNumber,
         TRANSACTIONS_IN_HISTORY,

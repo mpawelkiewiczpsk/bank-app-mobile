@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Text, TextInput, Button, HelperText } from 'react-native-paper';
 import { View, StyleSheet } from 'react-native';
-import { onLogin } from '../../api/auth';
+import onLogin from '../../api/auth';
 import * as SecureStore from 'expo-secure-store';
 
 function FirstLogin({ navigation }) {

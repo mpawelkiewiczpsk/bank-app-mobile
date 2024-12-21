@@ -58,11 +58,7 @@ function BlikScreen({ navigation }) {
           <Text style={{ fontSize: 22 }}>Your code is:</Text>
           <Text style={{ fontSize: 30, fontWeight: 'bold' }}>{blikNumber}</Text>
           <Text style={{ fontSize: 20 }}>{countdown}s</Text>
-          <Button
-            icon="content-copy"
-            mode="outlined"
-            onPress={() => console.log(blikNumber)}
-          >
+          <Button icon="content-copy" mode="outlined" onPress={() => {}}>
             Copy blik number
           </Button>
         </View>

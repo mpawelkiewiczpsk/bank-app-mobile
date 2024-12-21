@@ -1,11 +1,11 @@
 import axiosInstance from './axiosInstance';
 
-export const onLogin = ({ login, password }) =>
+const onLogin = ({ login, password }) =>
   axiosInstance
     .get(`users?login=${login}&password=${password}`)
-    .then(function ({ data }) {
-      return data;
-    })
-    .catch(function (error) {
-      console.log(error);
+    .then(({ data }) => data)
+    .catch((error) => {
+      console.error(error);
     });
+
+export default onLogin;
