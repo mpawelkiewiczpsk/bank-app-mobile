@@ -1,7 +1,8 @@
 import { useEffect, useLayoutEffect, useState } from 'react';
-import { View, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { Button, Text } from 'react-native-paper';
+import styles from './styles';
 
 function BlikScreen({ navigation }) {
   const [blikNumber, setBlikNumber] = useState(() => generateBlikNumber());
@@ -27,9 +28,8 @@ function BlikScreen({ navigation }) {
         setCountdown((prev) => prev - 1);
       }, 1000);
       return () => clearInterval(timer);
-    } else {
-      setIsCounting(!isCounting);
     }
+    setIsCounting(!isCounting);
   }, [countdown]);
 
   function generateBlikNumber() {
@@ -68,13 +68,3 @@ function BlikScreen({ navigation }) {
 }
 
 export default BlikScreen;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#fff',
-    gap: 15,
-  },
-});

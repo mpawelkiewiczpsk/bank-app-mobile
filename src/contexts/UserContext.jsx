@@ -7,7 +7,7 @@ export const useUserContext = () => {
   return useContext(UserContext);
 };
 
-export const UserProvider = ({ children }) => {
+export function UserProvider({ children }) {
   const [userInfo, setUserInfo] = useState({});
 
   return (
@@ -15,6 +15,6 @@ export const UserProvider = ({ children }) => {
       {children}
     </UserContext.Provider>
   );
-};
+}
 
 export default UserProvider;

@@ -5,12 +5,12 @@ import dayjs from 'dayjs';
 
 function limitText(text, maxLength) {
   if (text.length > maxLength) {
-    return text.slice(0, maxLength - 3) + '...';
+    return `${text.slice(0, maxLength - 3)}...`;
   }
   return text;
 }
 
-const TransactionsListComponent = ({ transaction }) => {
+function TransactionsListComponent({ transaction }) {
   const theme = useTheme();
 
   const { title, timestamp, amount, direction, icon } = transaction;
@@ -61,15 +61,15 @@ const TransactionsListComponent = ({ transaction }) => {
       </View>
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#f0f2f5',
     borderRadius: 15,
     flexDirection: 'row',
-    padding: 10,
     margin: 5,
+    padding: 10,
   },
 });
 

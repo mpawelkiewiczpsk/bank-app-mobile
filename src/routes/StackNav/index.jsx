@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import * as SecureStore from 'expo-secure-store';
 import LoginScreen from '../../screens/Login';
 import DrawerNav from '../DrawerNav';
 import FirstLogin from '../../screens/FirstLogin';
 import HistoryScreen from '../../screens/History';
-import * as SecureStore from 'expo-secure-store';
 
 const Stack = createNativeStackNavigator();
 
@@ -38,20 +38,19 @@ function StackNav() {
 
   if (loading) {
     return null;
-  } else {
-    return (
-      <Stack.Navigator initialRouteName={pin ? 'Login' : 'FirstLogin'}>
-        <Stack.Screen
-          name="Login"
-          component={LoginScreen}
-          initialParams={{ correctPin: pin }}
-        />
-        <Stack.Screen name="FirstLogin" component={FirstLogin} />
-        <Stack.Screen name="DrawerNav" component={DrawerNav} options={header} />
-        <Stack.Screen name="History" component={HistoryScreen} />
-      </Stack.Navigator>
-    );
   }
+  return (
+    <Stack.Navigator initialRouteName={pin ? 'Login' : 'FirstLogin'}>
+      <Stack.Screen
+        name="Login"
+        component={LoginScreen}
+        initialParams={{ correctPin: pin }}
+      />
+      <Stack.Screen name="FirstLogin" component={FirstLogin} />
+      <Stack.Screen name="DrawerNav" component={DrawerNav} options={header} />
+      <Stack.Screen name="History" component={HistoryScreen} />
+    </Stack.Navigator>
+  );
 }
 
 export default StackNav;

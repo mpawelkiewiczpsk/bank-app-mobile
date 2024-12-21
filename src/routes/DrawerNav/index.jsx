@@ -13,7 +13,7 @@ import TabNav from '../TabNav';
 
 const Drawer = createDrawerNavigator();
 
-const CustomDrawerContent = (props) => {
+function CustomDrawerContent(props) {
   const { navigation } = props;
 
   const handleLogOut = async () => {
@@ -34,7 +34,7 @@ const CustomDrawerContent = (props) => {
       </View>
     </DrawerContentScrollView>
   );
-};
+}
 
 function MyDrawer() {
   return (

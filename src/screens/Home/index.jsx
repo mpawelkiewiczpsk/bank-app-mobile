@@ -1,12 +1,5 @@
 import { useLayoutEffect, useEffect, useState } from 'react';
-import {
-  View,
-  TouchableOpacity,
-  StyleSheet,
-  ScrollView,
-  Pressable,
-  Image,
-} from 'react-native';
+import { View, TouchableOpacity, ScrollView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import {
   Text,
@@ -16,13 +9,14 @@ import {
   Snackbar,
   IconButton,
 } from 'react-native-paper';
-import TransactionsListComponent from '../../components/TransactionsListComponent';
 import { useIsFocused } from '@react-navigation/native';
+import * as SecureStore from 'expo-secure-store';
+import * as Clipboard from 'expo-clipboard';
+import TransactionsListComponent from '../../components/TransactionsListComponent';
 import { useUserContext } from '../../contexts/UserContext';
 import { getAccounts } from '../../api/accounts';
-import * as SecureStore from 'expo-secure-store';
 import { getHistory } from '../../api/history';
-import * as Clipboard from 'expo-clipboard';
+import styles from './styles';
 
 const TRANSACTIONS_IN_HISTORY = 3;
 
@@ -170,7 +164,7 @@ function HomeScreen({ navigation }) {
           style={styles.button}
           onPress={() => navigation.navigate('Transfer')}
         >
-          Transfer
+          <Text>Transfer</Text>
         </Button>
         <Button
           icon="cash"
@@ -178,7 +172,7 @@ function HomeScreen({ navigation }) {
           style={styles.button}
           onPress={() => navigation.navigate('Blik')}
         >
-          BLIK
+          <Text>BLIK</Text>
         </Button>
       </View>
       <View style={styles.buttonRow}>
@@ -188,7 +182,7 @@ function HomeScreen({ navigation }) {
           style={styles.button}
           onPress={copyAccountNumberToClipboard}
         >
-          Copy number
+          <Text>Copy number</Text>
         </Button>
         <Button
           icon="clock"
@@ -200,7 +194,7 @@ function HomeScreen({ navigation }) {
             })
           }
         >
-          History
+          <Text>History</Text>
         </Button>
       </View>
       <Text style={{ ...styles.bigText, color: theme.colors.primary }}>
@@ -222,47 +216,10 @@ function HomeScreen({ navigation }) {
         onDismiss={() => setSnackbarVisible(false)}
         duration={3000}
       >
-        Account number copied to clipboard!
+        <Text>Account number copied to clipboard!</Text>
       </Snackbar>
     </View>
   );
 }
 
 export default HomeScreen;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    padding: 15,
-    backgroundColor: '#fff',
-  },
-  button: {
-    flex: 1,
-  },
-  buttonRow: {
-    flexDirection: 'row',
-    marginTop: 15,
-    gap: 10,
-    width: '100%',
-  },
-  card: {
-    width: '100%',
-    padding: 15,
-  },
-  text: {
-    color: '#fff',
-  },
-  bigText: {
-    textAlign: 'left',
-    fontSize: 24,
-    alignSelf: 'flex-start',
-    marginTop: 15,
-    marginBottom: 15,
-  },
-  accountNumberRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-});
