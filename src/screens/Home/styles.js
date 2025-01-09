@@ -17,6 +17,9 @@ const styles = StyleSheet.create({
   button: {
     flex: 1,
   },
+  snackbarText: {
+    color: colors.white
+  },
   buttonRow: {
     flexDirection: 'row',
     gap: 10,

@@ -15,6 +15,9 @@ const styles = StyleSheet.create({
     margin: 0,
     width: 80,
   },
+  text: {
+    color: colors.white
+  },
   header: {
     fontSize: 24,
     marginBottom: 16,

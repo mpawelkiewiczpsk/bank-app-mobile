@@ -1,12 +1,14 @@
 import { getTransactions } from './transactions';
 
 const getHistory = async (accountNumber, limit) => {
+
   try {
     let sent = await getTransactions(accountNumber, 'sender');
     let received = await getTransactions(accountNumber, 'receiver');
 
     sent = sent.map((t) => ({ ...t, direction: 'out' }));
     received = received.map((t) => ({ ...t, direction: 'in' }));
+
 
     return (
       [...sent, ...received]

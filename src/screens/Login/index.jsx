@@ -66,21 +66,21 @@ function LoginScreen({ navigation, route }) {
             style={styles.numberButton}
             onPress={() => handleNumberPress('1')}
           >
-            <Text>1</Text>
+            <Text style={styles.text}>1</Text>
           </Button>
           <Button
             mode="contained"
             style={styles.numberButton}
             onPress={() => handleNumberPress('2')}
           >
-            <Text>2</Text>
+            <Text style={styles.text}>2</Text>
           </Button>
           <Button
             mode="contained"
             style={styles.numberButton}
             onPress={() => handleNumberPress('3')}
           >
-            <Text>3</Text>
+            <Text style={styles.text}>3</Text>
           </Button>
         </View>
         <View style={styles.row}>
@@ -89,21 +89,21 @@ function LoginScreen({ navigation, route }) {
             style={styles.numberButton}
             onPress={() => handleNumberPress('4')}
           >
-            <Text>4</Text>
+            <Text style={styles.text}>4</Text>
           </Button>
           <Button
             mode="contained"
             style={styles.numberButton}
             onPress={() => handleNumberPress('5')}
           >
-            <Text>5</Text>
+            <Text style={styles.text}>5</Text>
           </Button>
           <Button
             mode="contained"
             style={styles.numberButton}
             onPress={() => handleNumberPress('6')}
           >
-            <Text>6</Text>
+            <Text style={styles.text}>6</Text>
           </Button>
         </View>
         <View style={styles.row}>
@@ -112,21 +112,21 @@ function LoginScreen({ navigation, route }) {
             style={styles.numberButton}
             onPress={() => handleNumberPress('7')}
           >
-            <Text>7</Text>
+            <Text style={styles.text}>7</Text>
           </Button>
           <Button
             mode="contained"
             style={styles.numberButton}
             onPress={() => handleNumberPress('8')}
           >
-            <Text>8</Text>
+            <Text style={styles.text}>8</Text>
           </Button>
           <Button
             mode="contained"
             style={styles.numberButton}
             onPress={() => handleNumberPress('9')}
           >
-            <Text>9</Text>
+            <Text style={styles.text}>9</Text>
           </Button>
         </View>
         <View style={styles.row}>
@@ -141,7 +141,7 @@ function LoginScreen({ navigation, route }) {
             style={styles.numberButton}
             onPress={() => handleNumberPress('0')}
           >
-            <Text>0</Text>
+            <Text style={styles.text}>0</Text>
           </Button>
           {pin.length === 4 ? (
             <Button
@@ -149,7 +149,7 @@ function LoginScreen({ navigation, route }) {
               style={styles.okButton}
               onPress={handleLogin}
             >
-              <Text>OK</Text>
+              <Text style={styles.text}>OK</Text>
             </Button>
           ) : (
             <View style={[styles.okButton, styles.placeholderButton]} />

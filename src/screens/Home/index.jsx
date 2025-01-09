@@ -15,7 +15,7 @@ import * as Clipboard from 'expo-clipboard';
 import TransactionsListComponent from '../../components/TransactionsListComponent';
 import { useUserContext } from '../../contexts/UserContext';
 import { getAccounts } from '../../api/accounts';
-import { getHistory } from '../../api/history';
+import getHistory from '../../api/history';
 import styles from './styles';
 
 const TRANSACTIONS_IN_HISTORY = 3;
@@ -69,23 +69,24 @@ function HomeScreen({ navigation }) {
         ...userInfo,
         id: SecureStore.getItem('idUser').replace(/"/g, ''),
       };
-      const accounts = await getAccounts(user.id);
-      onsole.log(accounts)
-      const defaultAccount = accounts[0];
-      const transactions = await getHistory(
-        defaultAccount.accountNumber,
-        TRANSACTIONS_IN_HISTORY,
-      );
+      getAccounts(user.id).then();
 
-      console.log(transactions)
-
-      setUserInfo({
-        ...user,
-        accounts,
-      });
-      setAccountList(accounts);
-      setSelectedAccount(defaultAccount);
-      setTransactionList(transactions);
+      getAccounts(user.id).then(accounts => {
+        const defaultAccount = accounts[0];
+        getHistory(
+          defaultAccount.accountNumber,
+          TRANSACTIONS_IN_HISTORY,
+        ).then(transactions => {
+          setUserInfo({
+            ...user,
+            accounts,
+          });
+          setAccountList(accounts);
+          setSelectedAccount(defaultAccount);
+          setTransactionList(transactions);
+        });
+      
+      })
     }
 
     getHomeScreenData();
@@ -219,7 +220,7 @@ function HomeScreen({ navigation }) {
         onDismiss={() => setSnackbarVisible(false)}
         duration={3000}
       >
-        <Text>Account number copied to clipboard!</Text>
+        <Text style={styles.snackbarText}>Account number copied to clipboard!</Text>
       </Snackbar>
     </View>
   );
