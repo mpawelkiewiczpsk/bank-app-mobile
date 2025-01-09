@@ -38,8 +38,8 @@ function FirstLogin({ navigation }) {
     await authenticate();
   };
 
-  const handleTextChange = (setter, text) => {
-    setter(text.trim());
+  const handleTextChange = (name, text) => {
+    setLoginData({ ...loginData, [name]: text.trim() })
     setError(null);
   };
 
@@ -52,7 +52,7 @@ function FirstLogin({ navigation }) {
         label="Username"
         mode="outlined"
         onChangeText={(text) =>
-          handleTextChange(setLoginData({ ...loginData, login: text }), text)
+          handleTextChange('login', text)
         }
         value={loginData.login}
         error={error}
@@ -62,9 +62,9 @@ function FirstLogin({ navigation }) {
         mode="outlined"
         secureTextEntry
         onChangeText={(text) =>
-          handleTextChange(setLoginData({ ...loginData, password: text }), text)
+          handleTextChange('password', text)
         }
-        value={password}
+        value={loginData.password}
         error={error}
       />
       <HelperText type="error" style={styles.helper} visible={error}>

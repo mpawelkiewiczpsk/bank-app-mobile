@@ -3,7 +3,12 @@ import axiosInstance from './axiosInstance';
 export const getAccounts = (userId) =>
   axiosInstance
     .get(`accounts?userId=${userId}`)
-    .then(({ data }) => data)
+    .then(({ data }) => {
+
+      console.log(data);
+
+      return data
+    })
     .catch((error) => {
       console.error(error);
     });

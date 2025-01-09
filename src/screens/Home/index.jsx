@@ -70,11 +70,14 @@ function HomeScreen({ navigation }) {
         id: SecureStore.getItem('idUser').replace(/"/g, ''),
       };
       const accounts = await getAccounts(user.id);
+      onsole.log(accounts)
       const defaultAccount = accounts[0];
       const transactions = await getHistory(
         defaultAccount.accountNumber,
         TRANSACTIONS_IN_HISTORY,
       );
+
+      console.log(transactions)
 
       setUserInfo({
         ...user,
