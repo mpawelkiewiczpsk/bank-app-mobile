@@ -11,7 +11,7 @@ export const getAccounts = (userId) =>
 export const checkIfAccountExist = (accountNumber) =>
   axiosInstance
     .get(`accounts?accountNumber=${accountNumber}`)
-    .then(({ data }) => data?.length > 0)
+    .then(({ data }) =>  data?.[0] || false )
     .catch(() => null);
 
 export const updateBalance = (id, balance) =>

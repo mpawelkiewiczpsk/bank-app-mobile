@@ -16,7 +16,7 @@
       "id": "1",
       "userId": 1,
       "accountNumber": "55 0387 7629 6214 1749 8119 1515",
-      "balance": 2470
+      "balance": 2850
     },
     {
       "id": "2",
@@ -28,7 +28,7 @@
       "id": "3",
       "userId": 2,
       "accountNumber": "99 7077 4959 3638 8378 7952 4019",
-      "balance": 1000
+      "balance": 1150
     },
     {
       "id": "4",
@@ -142,6 +142,24 @@
       "title": "Za maslo",
       "timestamp": 1733991550887,
       "amount": "530",
+      "senderAccountNumber": "55 0387 7629 6214 1749 8119 1515",
+      "receiverAccountNumber": "99 7077 4959 3638 8378 7952 4019",
+      "icon": "personalTransfer"
+    },
+    {
+      "id": "6a9b",
+      "title": "A mass",
+      "timestamp": 1736410993026,
+      "amount": "120",
+      "senderAccountNumber": "55 0387 7629 6214 1749 8119 1515",
+      "receiverAccountNumber": "99 7077 4959 3638 8378 7952 4019",
+      "icon": "personalTransfer"
+    },
+    {
+      "id": "2109",
+      "title": "Nononon",
+      "timestamp": 1736411207663,
+      "amount": "150",
       "senderAccountNumber": "55 0387 7629 6214 1749 8119 1515",
       "receiverAccountNumber": "99 7077 4959 3638 8378 7952 4019",
       "icon": "personalTransfer"

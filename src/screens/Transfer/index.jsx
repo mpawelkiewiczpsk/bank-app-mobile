@@ -27,7 +27,7 @@ function TransferScreen({ navigation }) {
   };
 
   const handleConfirmTransfer = () => {
-    if (!newTransfer.amount || !newTransfer.title) {
+    if (!newTransfer.amount || !newTransfer.title || !newTransfer.bill) {
       Alert.alert(
         'Error',
         'Fill in all the fields before confirming the transfer.',
@@ -38,8 +38,9 @@ function TransferScreen({ navigation }) {
   };
 
   const onConfirm = () => {
-    checkIfAccountExist(newTransfer.bill).then((exist) => {
-      if (exist) {
+    checkIfAccountExist(newTransfer.bill).then((accountInfo) => {
+      
+      if (accountInfo) {
         addNewTransaction({
           title: newTransfer.title,
           timestamp: new Date().getTime(),
@@ -52,7 +53,11 @@ function TransferScreen({ navigation }) {
           Alert.alert('Success', 'Transfer completed');
           updateBalance(
             selectedAccountDetails.id,
-            selectedAccountDetails.balance - newTransfer.amount,
+            selectedAccountDetails.balance - parseFloat(newTransfer.amount),
+          );
+          updateBalance(
+            accountInfo.id,
+            accountInfo.balance + parseFloat(newTransfer.amount),
           );
         });
       } else {
